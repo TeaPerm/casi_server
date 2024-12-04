@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -13,12 +14,12 @@ import { authConfig } from './config/auth.configs';
    imports: [
       ConfigModule.forRoot({ isGlobal: true }),
       TypeOrmModule.forRoot({
-         type: 'mysql',
+         type: 'postgres',
          host: process.env.DB_HOST,
          port: parseInt(process.env.DB_PORT),
          username: process.env.DB_USERNAME,
          password: process.env.DB_PASSWORD,
-         database: 'nest_learn',
+         database: 'casi_db',
          entities: entities,
          synchronize: true,
       }),

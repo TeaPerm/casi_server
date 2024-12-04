@@ -1,14 +1,19 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
-import { AppService } from './app.service';
-import { AuthGuard } from './guards/auth.guard';
+import { Controller, Get, Post, Req, UseGuards } from "@nestjs/common";
+import { AppService } from "./app.service";
+import { AuthGuard } from "./guards/auth.guard";
 
-@UseGuards(AuthGuard)
 @Controller()
 export class AppController {
-   constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) {}
 
-   @Get()
-   SomeProtectedRoute(@Req() req) {
-      return { message: 'Hella secret stuff', req: req.userId };
-   }
+  @Get()
+  asd(@Req() req) {
+    return { message: "hello" };
+  }
+
+  @UseGuards(AuthGuard)
+  @Post()
+  SomeProtectedRoute(@Req() req) {
+    return { message: "Hella secret stuff", req: req.userId };
+  }
 }
