@@ -19,7 +19,7 @@ export class UserEntity extends BaseEntity {
   @Column()
   password: string;
 
-  @Column("int", { default: 100_000 })
+  @Column("int", { default: 10_000 })
   credit: number;
 
   @OneToMany(() => RefreshTokenEntity, (refreshToken) => refreshToken.user, {

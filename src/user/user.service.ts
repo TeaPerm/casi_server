@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserEntity } from "src/database";
 import { Repository } from "typeorm";
@@ -36,5 +36,20 @@ export class UserService {
     });
 
     return { name, credit, email };
+  }
+
+  async changeCredit(userId: string, changeBy: number) {
+    const userDetails = await this.findUserDetails(userId);
+    if (!userDetails) {
+      throw new BadRequestException("User not found");
+    }
+
+    const { credit } = userDetails;
+    const newCredit = credit + changeBy;
+    await this.userRepository.update(userId, {
+      credit: newCredit,
+    });
+
+    return { credit: newCredit };
   }
 }
